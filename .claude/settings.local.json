@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "PowerShell(git clone https://github.com/tenfoldmarc/website-builder-setup.git \"$env:USERPROFILE\\\\.claude\\\\commands\\\\website-builder-setup\")",
+      "PowerShell($gitPaths = @\\(\"C:\\\\Program Files\\\\Git\\\\cmd\\\\git.exe\", \"C:\\\\Program Files \\(x86\\)\\\\Git\\\\cmd\\\\git.exe\"\\); foreach \\($p in $gitPaths\\) { if \\(Test-Path $p\\) { Write-Output \"Found: $p\" } })",
+      "PowerShell(Expand-Archive *)",
+      "PowerShell(Get-ChildItem *)",
+      "PowerShell(Copy-Item *)"
+    ]
+  }
+}

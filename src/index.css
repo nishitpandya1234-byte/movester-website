@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cream: #F7F1E5;
+  --cream-dark: #EFE7D4;
+  --ink: #161614;
+  --terra: #D14D2B;
+  --forest: #2D4A3E;
+  --muted: #7A7670;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--cream);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+canvas {
+  display: block;
+}
+
+@layer utilities {
+  .font-fraunces {
+    font-family: 'Fraunces', serif;
+  }
+}
