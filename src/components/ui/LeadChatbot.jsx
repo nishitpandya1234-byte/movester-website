@@ -147,6 +147,27 @@ export default function LeadChatbot() {
     advance(inputValue.trim())
   }
 
+  const goBack = () => {
+    if (stepIndex === 0 || typing) return
+    const prevStep = STEPS[stepIndex - 1]
+
+    // Drop the current question and the user's answer to the previous one,
+    // leaving the previous question's bot message as the last in the thread
+    setMessages(prev => {
+      const trimmed = [...prev]
+      if (trimmed[trimmed.length - 1]?.from === 'bot') trimmed.pop()
+      if (trimmed[trimmed.length - 1]?.from === 'user') trimmed.pop()
+      return trimmed
+    })
+    setInputValue(answers[prevStep.key] ?? '')
+    setAnswers(prev => {
+      const next = { ...prev }
+      delete next[prevStep.key]
+      return next
+    })
+    setStepIndex(stepIndex - 1)
+  }
+
   const currentStep = STEPS[stepIndex]
 
   return (
@@ -184,6 +205,15 @@ export default function LeadChatbot() {
           >
             {/* Header */}
             <div className="flex items-center gap-3 px-5 py-4 bg-forest text-cream flex-shrink-0">
+              <button
+                onClick={() => setOpen(false)}
+                aria-label="Close chat"
+                className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 hover:bg-cream/10 transition-colors duration-150 cursor-pointer"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
               <div className="w-9 h-9 rounded-full bg-cream/15 flex items-center justify-center text-lg">📦</div>
               <div className="flex flex-col">
                 <span className="font-fraunces font-bold text-sm leading-tight">Movester Assistant</span>
@@ -228,7 +258,7 @@ export default function LeadChatbot() {
 
             {/* Input area */}
             {!done && !typing && currentStep && (
-              <div className="px-4 py-3 border-t border-cream-dark flex-shrink-0">
+              <div className="px-4 py-3 border-t border-cream-dark flex-shrink-0 flex flex-col gap-2.5">
                 {currentStep.type === 'choice' ? (
                   <div className="flex flex-wrap gap-2">
                     {currentStep.options.map(opt => (
@@ -262,6 +292,18 @@ export default function LeadChatbot() {
                       </svg>
                     </button>
                   </form>
+                )}
+
+                {stepIndex > 0 && (
+                  <button
+                    onClick={goBack}
+                    className="self-start flex items-center gap-1 text-xs text-muted hover:text-terra transition-colors duration-150 cursor-pointer"
+                  >
+                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                    </svg>
+                    Go back
+                  </button>
                 )}
               </div>
             )}
