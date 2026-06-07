@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 // Replace with your deployed Google Apps Script web app URL (see scripts/lead-sheet-webhook.gs)
-const LEAD_SHEET_WEBHOOK_URL = ''
+const LEAD_SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzDG3trhCpxMuAoajtT-S3eIAEodzV0aKcCzaHy0G7xXIaCEJlHQ9xpxyFyqoB6tz8Nvw/exec'
 
 const SIZES = ['Studio', '1 Bedroom', '2 Bedroom', '3 Bedroom', 'Full House', 'Office']
 const BUDGETS = ['Under $500', '$500 – $1,000', '$1,000 – $2,000', '$2,000+', 'Not sure yet']
