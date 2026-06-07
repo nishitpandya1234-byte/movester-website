@@ -12,6 +12,7 @@ import WhyUs from './components/ui/WhyUs'
 import Areas from './components/ui/Areas'
 import QuoteForm from './components/ui/QuoteForm'
 import Footer from './components/ui/Footer'
+import LeadChatbot from './components/ui/LeadChatbot'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -81,6 +82,7 @@ export default function App() {
         <QuoteForm />
       </main>
       <Footer />
+      <LeadChatbot />
     </div>
   )
 }

@@ -96,7 +96,9 @@ function FeatureCard({ feature }) {
 export default function WhyUs() {
   const sectionRef = useRef(null)
   const statsRef = useRef(null)
+  const featuresRef = useRef(null)
   const inView = useInView(statsRef, { once: true, margin: '-100px' })
+  const featuresInView = useInView(featuresRef, { once: true, amount: 0.1 })
 
   const containerVariants = {
     hidden: {},
@@ -142,10 +144,10 @@ export default function WhyUs() {
 
         {/* Feature cards */}
         <motion.div
+          ref={featuresRef}
           variants={containerVariants}
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          animate={featuresInView ? 'visible' : 'hidden'}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
         >
           {FEATURES.map(feature => (

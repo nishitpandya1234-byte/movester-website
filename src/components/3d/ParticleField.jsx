@@ -1,5 +1,6 @@
 import React, { useRef, useMemo, Suspense, useEffect } from 'react'
-import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import { useFrame, useThree } from '@react-three/fiber'
+import Canvas3D from './Canvas3D'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -78,7 +79,7 @@ function Scene({ sectionRef }) {
 
 export default function ParticleField({ sectionRef }) {
   return (
-    <Canvas
+    <Canvas3D
       dpr={[1, 1.5]}
       camera={{ position: [0, 0, 8], fov: 60 }}
       style={{ width: '100%', height: '100%' }}
@@ -86,6 +87,6 @@ export default function ParticleField({ sectionRef }) {
       <Suspense fallback={null}>
         <Scene sectionRef={sectionRef} />
       </Suspense>
-    </Canvas>
+    </Canvas3D>
   )
 }

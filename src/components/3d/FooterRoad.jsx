@@ -1,5 +1,7 @@
 import React, { useRef, Suspense } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { useFrame } from '@react-three/fiber'
+import Canvas3D from './Canvas3D'
+import SceneFallback from './SceneFallback'
 
 function LoopingRoad() {
   const truckRef = useRef()
@@ -84,15 +86,16 @@ function LoopingRoad() {
 
 export default function FooterRoad() {
   return (
-    <Canvas
+    <Canvas3D
       dpr={[1, 1.5]}
       frameloop="always"
       camera={{ position: [0, 1.2, 6], fov: 40 }}
       style={{ width: '100%', height: '80px' }}
+      fallback={<SceneFallback icon="🛣️" />}
     >
       <Suspense fallback={null}>
         <LoopingRoad />
       </Suspense>
-    </Canvas>
+    </Canvas3D>
   )
 }

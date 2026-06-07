@@ -1,5 +1,7 @@
 import React, { useRef, useEffect, useMemo, Suspense, useState } from 'react'
-import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import { useFrame, useThree } from '@react-three/fiber'
+import Canvas3D from './Canvas3D'
+import SceneFallback from './SceneFallback'
 import { Text } from '@react-three/drei'
 import * as THREE from 'three'
 import gsap from 'gsap'
@@ -274,15 +276,16 @@ function Scene() {
 
 export default function HeroScene() {
   return (
-    <Canvas
+    <Canvas3D
       shadows
       dpr={[1, 1.5]}
       camera={{ position: [0, 3, 12], fov: 55 }}
       style={{ width: '100%', height: '100%' }}
+      fallback={<SceneFallback icon="🚚" />}
     >
       <Suspense fallback={null}>
         <Scene />
       </Suspense>
-    </Canvas>
+    </Canvas3D>
   )
 }

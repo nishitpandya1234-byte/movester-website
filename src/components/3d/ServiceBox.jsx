@@ -1,5 +1,9 @@
 import React, { useRef, Suspense } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { useFrame } from '@react-three/fiber'
+import Canvas3D from './Canvas3D'
+import SceneFallback from './SceneFallback'
+
+const FALLBACK_ICONS = { apartment: '🏢', house: '🏠', office: '💼', student: '🎓' }
 import { useSpring, animated } from '@react-spring/three'
 
 function BoxFlaps({ isHovered }) {
@@ -200,15 +204,16 @@ function SceneContent({ serviceType, isHovered }) {
 
 export default function ServiceBox({ serviceType = 'apartment', isHovered = false }) {
   return (
-    <Canvas
+    <Canvas3D
       dpr={[1, 1.5]}
       frameloop="always"
       camera={{ position: [0, 1, 5], fov: 45 }}
       style={{ width: '100%', height: '200px' }}
+      fallback={<SceneFallback icon={FALLBACK_ICONS[serviceType]} />}
     >
       <Suspense fallback={null}>
         <SceneContent serviceType={serviceType} isHovered={isHovered} />
       </Suspense>
-    </Canvas>
+    </Canvas3D>
   )
 }

@@ -1,5 +1,7 @@
 import React, { useRef, useMemo, Suspense, useEffect } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { useFrame } from '@react-three/fiber'
+import Canvas3D from './Canvas3D'
+import SceneFallback from './SceneFallback'
 import { useSpring, animated } from '@react-spring/three'
 import * as THREE from 'three'
 
@@ -147,15 +149,16 @@ function Scene({ progress }) {
 
 export default function FormTruck({ progress = 0 }) {
   return (
-    <Canvas
+    <Canvas3D
       dpr={[1, 1.5]}
       frameloop="always"
       camera={{ position: [0, 1, 8], fov: 35 }}
       style={{ width: '100%', height: '90px' }}
+      fallback={<SceneFallback icon="🚚" />}
     >
       <Suspense fallback={null}>
         <Scene progress={progress} />
       </Suspense>
-    </Canvas>
+    </Canvas3D>
   )
 }

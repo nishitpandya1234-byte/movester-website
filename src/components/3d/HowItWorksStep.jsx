@@ -1,5 +1,9 @@
 import React, { useRef, Suspense } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { useFrame } from '@react-three/fiber'
+import Canvas3D from './Canvas3D'
+import SceneFallback from './SceneFallback'
+
+const FALLBACK_ICONS = { 1: '📱', 2: '📋', 3: '🚚' }
 import { useSpring, animated } from '@react-spring/three'
 
 function PhoneStep({ triggered }) {
@@ -164,15 +168,16 @@ function StepScene({ step, triggered }) {
 
 export default function HowItWorksStep({ step = 1, triggered = false }) {
   return (
-    <Canvas
+    <Canvas3D
       dpr={[1, 1.5]}
       frameloop="always"
       camera={{ position: [0, 0, 6], fov: 55 }}
       style={{ width: '180px', height: '180px' }}
+      fallback={<SceneFallback icon={FALLBACK_ICONS[step]} className="rounded-2xl" />}
     >
       <Suspense fallback={null}>
         <StepScene step={step} triggered={triggered} />
       </Suspense>
-    </Canvas>
+    </Canvas3D>
   )
 }
