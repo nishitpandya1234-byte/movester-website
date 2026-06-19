@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.102.0",
     "@gsap/react": "^2.1.2",
     "@react-spring/three": "^9.7.4",
     "@react-three/drei": "^9.122.0",

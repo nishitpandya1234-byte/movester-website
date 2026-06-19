@@ -87,8 +87,7 @@ export default function Nav() {
         {/* CTA + hamburger */}
         <div className="flex items-center gap-3">
           <a
-            href="#quote"
-            onClick={e => handleNavClick(e, '#quote')}
+            href="/calculator"
             className="hidden md:inline-flex items-center px-4 py-2 rounded-lg bg-terra text-cream text-sm font-medium hover:bg-forest transition-colors duration-200 cursor-pointer"
           >
             Get a Quote
@@ -126,8 +125,7 @@ export default function Nav() {
             </a>
           ))}
           <a
-            href="#quote"
-            onClick={e => handleNavClick(e, '#quote')}
+            href="/calculator"
             className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-terra text-cream text-sm font-medium cursor-pointer"
           >
             Get a Quote
