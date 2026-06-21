@@ -30,18 +30,26 @@ export default function Hero() {
       {/* Gradient overlay — left side readable */}
       <div className="absolute inset-0 z-[1] bg-gradient-to-r from-cream/95 via-cream/60 to-cream/10 pointer-events-none" />
 
-      {/* Faded brand watermark — fills the empty right side of the hero.
-          mix-blend-screen drops the logo's black background so only a soft,
-          light ghost of the mark + wordmark shows over the cream. */}
-      <motion.img
-        src="/movester-logo.jpg"
-        alt=""
+      {/* Brand lockup — sits in the right portion of the hero, behind the
+          stat cards: the orange "M" mark with a clean black "Movester"
+          wordmark beneath it. Transparent PNG + real text = crisp, no black
+          box, no messy photo wordmark. */}
+      <motion.div
         aria-hidden="true"
         initial={{ opacity: 0, scale: 1.04 }}
-        animate={{ opacity: 0.5, scale: 1 }}
+        animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 1.2, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-        className="hidden lg:block absolute z-[2] right-[7%] top-1/2 -translate-y-1/2 w-[34rem] max-w-[42vw] mix-blend-screen pointer-events-none select-none"
-      />
+        className="hidden lg:flex flex-col items-center absolute z-[2] right-[24%] top-[28%] -translate-y-1/2 pointer-events-none select-none"
+      >
+        <img
+          src="/movester-mark.png"
+          alt=""
+          className="h-[38vh] max-h-[340px] w-auto opacity-60"
+        />
+        <span className="font-sans font-bold tracking-tight text-ink/60 text-6xl xl:text-7xl -mt-2">
+          Movester
+        </span>
+      </motion.div>
 
       {/* HTML Overlay */}
       <div className="absolute inset-0 z-10 flex items-center justify-between px-8 md:px-16 lg:px-24">
@@ -105,7 +113,7 @@ export default function Hero() {
           {[
             { value: '500+', label: 'Happy Moves' },
             { value: '4.9★', label: 'Customer Rating' },
-            { value: '10 min', label: 'Quote Response' },
+            { value: 'Instant', label: 'Quote Response' },
           ].map((stat, i) => (
             <motion.div
               key={stat.label}
