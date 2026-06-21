@@ -30,6 +30,19 @@ export default function Hero() {
       {/* Gradient overlay — left side readable */}
       <div className="absolute inset-0 z-[1] bg-gradient-to-r from-cream/95 via-cream/60 to-cream/10 pointer-events-none" />
 
+      {/* Faded brand watermark — fills the empty right side of the hero.
+          mix-blend-screen drops the logo's black background so only a soft,
+          light ghost of the mark + wordmark shows over the cream. */}
+      <motion.img
+        src="/movester-logo.jpg"
+        alt=""
+        aria-hidden="true"
+        initial={{ opacity: 0, scale: 1.04 }}
+        animate={{ opacity: 0.5, scale: 1 }}
+        transition={{ delay: 1.2, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+        className="hidden lg:block absolute z-[2] right-[7%] top-1/2 -translate-y-1/2 w-[34rem] max-w-[42vw] mix-blend-screen pointer-events-none select-none"
+      />
+
       {/* HTML Overlay */}
       <div className="absolute inset-0 z-10 flex items-center justify-between px-8 md:px-16 lg:px-24">
         <div className="max-w-xl">

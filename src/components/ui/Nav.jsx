@@ -67,7 +67,7 @@ export default function Nav() {
         {/* Logo */}
         <a href="#hero" onClick={e => handleNavClick(e, '#hero')} className="flex items-center cursor-pointer" aria-label="Movester Moving — home">
           <span className="rounded-lg bg-ink px-2 py-1 inline-flex items-center">
-            <img src="/movester-logo.jpg" alt="Movester Moving" className="h-7 w-auto" />
+            <img src="/movester-logo.jpg" alt="Movester Moving" className="h-11 w-auto" />
           </span>
         </a>
 
