@@ -17,10 +17,7 @@ export default function Footer() {
 
           {/* Col 1: Brand */}
           <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-1">
-              <span className="font-fraunces font-bold text-2xl text-cream">Movester</span>
-              <span className="w-2 h-2 rounded-full bg-terra inline-block mb-0.5" />
-            </div>
+            <img src="/movester-logo.jpg" alt="Movester Moving" className="h-20 w-auto self-start" />
             <p className="text-cream/60 text-sm leading-relaxed max-w-xs">
               Moving day, made painless. Trusted Canadian movers serving the Greater Toronto Area.
             </p>
@@ -51,6 +48,15 @@ export default function Footer() {
                   className="text-sm text-cream/60 hover:text-terra transition-colors duration-200 cursor-pointer"
                 >
                   Service Areas
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#reviews"
+                  onClick={e => { e.preventDefault(); document.querySelector('#reviews')?.scrollIntoView({ behavior: 'smooth' }) }}
+                  className="text-sm text-cream/60 hover:text-terra transition-colors duration-200 cursor-pointer"
+                >
+                  Reviews
                 </a>
               </li>
             </ul>

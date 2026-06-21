@@ -10,6 +10,7 @@ import Services from './components/ui/Services'
 import HowItWorks from './components/ui/HowItWorks'
 import WhyUs from './components/ui/WhyUs'
 import Areas from './components/ui/Areas'
+import Reviews from './components/ui/Reviews'
 import QuoteForm from './components/ui/QuoteForm'
 import Footer from './components/ui/Footer'
 import LeadChatbot from './components/ui/LeadChatbot'
@@ -79,6 +80,7 @@ export default function App() {
         <HowItWorks />
         <WhyUs />
         <Areas />
+        <Reviews />
         <QuoteForm />
       </main>
       <Footer />

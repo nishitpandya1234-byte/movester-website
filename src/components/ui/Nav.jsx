@@ -6,6 +6,7 @@ const navLinks = [
   { label: 'How It Works', href: '#how-it-works' },
   { label: 'Why Us', href: '#why-us' },
   { label: 'Areas', href: '#areas' },
+  { label: 'Reviews', href: '#reviews' },
 ]
 
 export default function Nav() {
@@ -64,9 +65,10 @@ export default function Nav() {
 
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
-        <a href="#hero" onClick={e => handleNavClick(e, '#hero')} className="flex items-center gap-1 cursor-pointer">
-          <span className="font-fraunces font-bold text-xl text-ink">Movester</span>
-          <span className="w-2 h-2 rounded-full bg-terra animate-pulse inline-block mb-0.5" />
+        <a href="#hero" onClick={e => handleNavClick(e, '#hero')} className="flex items-center cursor-pointer" aria-label="Movester Moving — home">
+          <span className="rounded-lg bg-ink px-2 py-1 inline-flex items-center">
+            <img src="/movester-logo.jpg" alt="Movester Moving" className="h-7 w-auto" />
+          </span>
         </a>
 
         {/* Desktop nav */}
