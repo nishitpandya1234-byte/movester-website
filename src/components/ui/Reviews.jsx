@@ -9,7 +9,7 @@ const FEEDBACK_SHEET_WEBHOOK_URL = ''
 // 2. Once Movester's Google Business Profile is claimed, paste its "write a review"
 //    link here (looks like https://g.page/r/XXXXXXXX/review). The "Review us on
 //    Google" button stays hidden until this is set, so nobody hits a dead link.
-const GOOGLE_REVIEW_URL = ''
+const GOOGLE_REVIEW_URL = 'https://g.page/r/CaY7KM6WMj7XEBI/review'
 
 // Starter testimonials so the wall is never empty. Real reviews load on top.
 const SEED_REVIEWS = [
