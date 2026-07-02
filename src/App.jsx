@@ -78,9 +78,9 @@ export default function App() {
         </ContainerScroll>
         <Services />
         <HowItWorks />
+        <Reviews />
         <WhyUs />
         <Areas />
-        <Reviews />
         <QuoteForm />
       </main>
       <Footer />

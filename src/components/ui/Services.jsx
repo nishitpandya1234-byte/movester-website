@@ -1,27 +1,30 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { motion } from 'framer-motion'
-import ServiceBox from '../3d/ServiceBox'
 
 const SERVICES = [
   {
     type: 'apartment',
     title: 'Apartments',
     description: 'Studio to family-sized, we handle tight stairwells and narrow hallways with care.',
+    image: '/apartment.jpg',
   },
   {
     type: 'house',
     title: 'Houses',
     description: 'Full home moves with furniture disassembly, reassembly, and protective wrapping.',
+    image: '/house.jpg',
   },
   {
     type: 'office',
     title: 'Offices',
     description: 'After-hours and weekend business relocations — zero downtime for your team.',
+    image: '/office.avif',
   },
   {
     type: 'student',
     title: 'Students',
     description: 'Dorm and off-campus moves at student-friendly rates. We fit a tight budget.',
+    image: '/student.jpg',
   },
 ]
 
@@ -36,21 +39,20 @@ const cardVariants = {
 }
 
 function ServiceCard({ service, index }) {
-  const [hovered, setHovered] = useState(false)
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
-
   return (
     <motion.div
       variants={cardVariants}
       whileHover={{ y: -8 }}
-      onHoverStart={() => setHovered(true)}
-      onHoverEnd={() => setHovered(false)}
       className="bg-cream rounded-2xl overflow-hidden cursor-pointer group shadow-sm hover:shadow-xl transition-shadow duration-300"
     >
-      {/* 3D Canvas */}
-      <div className="relative">
-        <ServiceBox serviceType={service.type} isHovered={isMobile ? false : hovered} />
-        <div className="absolute inset-0 pointer-events-none" />
+      {/* Image */}
+      <div className="relative h-[200px] overflow-hidden">
+        <img
+          src={service.image}
+          alt={service.title}
+          loading="lazy"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+        />
       </div>
 
       {/* Text content */}

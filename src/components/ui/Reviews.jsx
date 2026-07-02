@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { motion } from 'framer-motion'
 
 // ── Configuration ───────────────────────────────────────────────────────────
@@ -85,9 +85,8 @@ export default function Reviews() {
   const [name, setName] = useState('')
   const [rating, setRating] = useState(0)
   const [message, setMessage] = useState('')
-  const [submitted, setSubmitted] = useState(false)
-  const [copied, setCopied] = useState(false)
-  const lastMessageRef = useRef('')
+  // 'start' -> pick a rating and go to Google first, 'form' -> post the same review here, 'submitted' -> done
+  const [stage, setStage] = useState('start')
 
   // Pull any server-saved reviews and show them above the seeds.
   useEffect(() => {
@@ -115,7 +114,6 @@ export default function Reviews() {
       submittedAt: new Date().toISOString(),
       source: 'website-reviews',
     }
-    lastMessageRef.current = review.message
 
     // Save server-side (fire-and-forget, same pattern as the lead webhook).
     if (FEEDBACK_SHEET_WEBHOOK_URL) {
@@ -129,20 +127,16 @@ export default function Reviews() {
 
     // Show it immediately so the submitter sees their review right away.
     setReviews(prev => [review, ...prev])
-    setSubmitted(true)
+    setStage('submitted')
     setName('')
     setRating(0)
     setMessage('')
   }, [name, rating, message])
 
   const handleGoogleClick = () => {
-    if (lastMessageRef.current && navigator.clipboard) {
-      navigator.clipboard.writeText(lastMessageRef.current).then(
-        () => { setCopied(true); setTimeout(() => setCopied(false), 2500) },
-        () => {}
-      )
-    }
+    if (rating < 1) return
     window.open(GOOGLE_REVIEW_URL, '_blank', 'noopener,noreferrer')
+    setStage('form')
   }
 
   const avg = reviews.length
@@ -201,7 +195,7 @@ export default function Reviews() {
           transition={{ duration: 0.6 }}
           className="max-w-2xl mx-auto bg-white/70 rounded-3xl p-8 md:p-10 shadow-sm border border-cream-dark"
         >
-          {submitted ? (
+          {stage === 'submitted' ? (
             <div className="flex flex-col items-center text-center gap-4">
               <div className="w-14 h-14 rounded-full bg-terra/10 flex items-center justify-center">
                 <svg className="w-7 h-7 text-terra" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -210,36 +204,20 @@ export default function Reviews() {
               </div>
               <h3 className="font-fraunces font-bold text-2xl text-ink">Thank you! 🎉</h3>
               <p className="text-muted text-sm max-w-sm">
-                Your review is now live above. It would mean the world if you shared the same
-                feedback on Google — it helps other people find us.
+                Your review is now live above too. Thanks for taking the time to share it in both places!
               </p>
-              {GOOGLE_REVIEW_URL ? (
-                <button
-                  onClick={handleGoogleClick}
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-terra text-cream font-medium text-sm hover:bg-forest transition-colors duration-200 cursor-pointer shadow-sm"
-                >
-                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z" />
-                  </svg>
-                  {copied ? 'Copied — paste it on Google!' : 'Review us on Google'}
-                </button>
-              ) : (
-                <p className="text-xs text-muted/70 italic">
-                  (Google review link coming soon.)
-                </p>
-              )}
               <button
-                onClick={() => setSubmitted(false)}
+                onClick={() => setStage('start')}
                 className="text-xs text-muted hover:text-terra transition-colors cursor-pointer"
               >
                 Leave another review
               </button>
             </div>
-          ) : (
+          ) : stage === 'form' ? (
             <>
               <div className="text-center mb-6">
-                <h3 className="font-fraunces font-bold text-2xl text-ink">Share your experience</h3>
-                <p className="text-muted text-sm mt-2">Used Movester for your move? Tell us how it went.</p>
+                <h3 className="font-fraunces font-bold text-2xl text-ink">Now share it here too</h3>
+                <p className="text-muted text-sm mt-2">Thanks for posting on Google! Add the same feedback below so other visitors can see it here.</p>
               </div>
               <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                 <div className="flex flex-col gap-2">
@@ -277,6 +255,37 @@ export default function Reviews() {
                 </button>
               </form>
             </>
+          ) : (
+            <div className="flex flex-col items-center text-center gap-5">
+              <div>
+                <h3 className="font-fraunces font-bold text-2xl text-ink">Share your experience</h3>
+                <p className="text-muted text-sm mt-2">Used Movester for your move? Start with a quick Google review.</p>
+              </div>
+              <div className="flex flex-col items-center gap-2">
+                <span className="text-sm font-medium text-ink">Your rating</span>
+                <Stars value={rating} size="w-8 h-8" interactive onChange={setRating} />
+              </div>
+              {GOOGLE_REVIEW_URL ? (
+                <button
+                  onClick={handleGoogleClick}
+                  disabled={rating < 1}
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-terra text-cream font-medium text-sm hover:bg-forest transition-colors duration-200 cursor-pointer shadow-sm disabled:opacity-40 disabled:cursor-not-allowed"
+                >
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z" />
+                  </svg>
+                  Continue to Google Review
+                </button>
+              ) : (
+                <button
+                  onClick={() => rating >= 1 && setStage('form')}
+                  disabled={rating < 1}
+                  className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-terra text-cream font-medium text-sm hover:bg-forest transition-colors duration-200 cursor-pointer shadow-sm disabled:opacity-40 disabled:cursor-not-allowed"
+                >
+                  Continue
+                </button>
+              )}
+            </div>
           )}
         </motion.div>
       </div>
