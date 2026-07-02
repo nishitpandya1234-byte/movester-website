@@ -39,7 +39,7 @@ export default function Hero() {
         initial={{ opacity: 0, scale: 1.04 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 1.2, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-        className="hidden lg:flex flex-col items-center absolute z-[2] right-[24%] top-[28%] -translate-y-1/2 pointer-events-none select-none"
+        className="hidden lg:flex flex-col items-center absolute z-[2] right-[24%] top-[28%] -mt-12 -translate-y-1/2 pointer-events-none select-none"
       >
         <img
           src="/movester-mark.png"
@@ -53,7 +53,7 @@ export default function Hero() {
 
       {/* HTML Overlay */}
       <div className="absolute inset-0 z-10 flex items-center justify-between px-8 md:px-16 lg:px-24">
-        <div className="max-w-xl">
+        <div className="max-w-xl -translate-y-8 lg:-translate-y-12">
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -109,7 +109,7 @@ export default function Hero() {
             </motion.p>
           </motion.div>
         </div>
-        <div className="hidden lg:flex flex-col gap-4 mr-8">
+        <div className="hidden lg:flex flex-col gap-4 mr-8 lg:-translate-y-12">
           {[
             { value: '500+', label: 'Happy Moves' },
             { value: '4.9★', label: 'Customer Rating' },
@@ -129,20 +129,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 3, duration: 0.8 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1"
-      >
-        <span className="text-xs text-muted tracking-widest uppercase">Scroll</span>
-        <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
-          className="w-0.5 h-8 bg-muted/40 rounded-full"
-        />
-      </motion.div>
     </section>
   )
 }
